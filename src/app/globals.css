@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: 14 165 233;
+  --color-success: 16 185 129;
+  --color-danger: 239 68 68;
+  --color-neutral: 100 116 139;
+}
+
+body {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(
+      1200px 600px at 20% -10%,
+      rgba(117, 34, 100, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 90% 10%,
+      rgba(14, 165, 233, 0.08),
+      transparent 55%
+    ),
+    radial-gradient(#e2e8f0 0.8px, transparent 0.8px);
+  background-size: 100% 100%, 100% 100%, 24px 24px;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-overlay {
+  animation: modalFadeIn 160ms ease-out;
+}
+
+.modal-panel {
+  animation: modalPopIn 180ms ease-out;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-toast-in {
+  animation: toastIn 250ms ease-out;
+}
