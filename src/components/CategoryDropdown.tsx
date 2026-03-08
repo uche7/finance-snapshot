@@ -27,11 +27,10 @@ export function CategoryDropdown({
       <button
         type="button"
         onClick={toggle}
-        className={`flex w-full items-center justify-between rounded-xl border px-3 py-2.5 text-left text-sm outline-none transition ${
-          error
+        className={`flex w-full items-center justify-between rounded-xl border px-3 py-2.5 text-left text-sm outline-none transition ${error
             ? "border-rose-300 bg-rose-50/40 ring-rose-500/40"
             : "border-slate-200 bg-slate-50 ring-sky-500/60 focus:bg-white"
-        }`}
+          }`}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
@@ -45,7 +44,7 @@ export function CategoryDropdown({
 
       {open ? (
         <div
-          className="absolute left-0 right-0 top-[calc(100%+8px)] z-20 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl"
+          className="absolute left-0 right-0 top-[calc(100%+8px)] z-20 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl animate-modalPopIn"
           role="listbox"
           aria-label="Category options"
         >
@@ -64,21 +63,19 @@ export function CategoryDropdown({
                   aria-selected={isSelected}
                   onMouseEnter={() => setActiveIndex(idx)}
                   onClick={() => select(opt)}
-                  className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition ${
-                    isActive ? "bg-violet-50 text-violet-900" : "text-slate-700 hover:bg-slate-50"
-                  }`}
+                  className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition cursor-pointer ${isActive ? "bg-[#752264]/5 text-[#752264]" : "text-slate-700 hover:bg-slate-50"
+                    }`}
                 >
                   <span className="flex items-center gap-2">
                     <span
-                      className={`h-2.5 w-2.5 rounded-full ${
-                        isSelected ? "bg-violet-600" : "bg-slate-300"
-                      }`}
+                      className={`h-2.5 w-2.5 rounded-full ${isSelected ? "bg-[#752264]" : "bg-slate-300"
+                        }`}
                       aria-hidden
                     />
                     {opt}
                   </span>
                   {isSelected ? (
-                    <span className="text-xs font-semibold text-violet-600">
+                    <span className="text-xs font-semibold text-[#752264]">
                       Selected
                     </span>
                   ) : null}

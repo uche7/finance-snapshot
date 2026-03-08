@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { CATEGORIES } from "../utils/constants";
 import type { TransactionFormProps } from "../types/components";
 import { useTransactionForm } from "../hooks/useTransactionForm";
@@ -16,6 +18,14 @@ export function TransactionForm({
 }: TransactionFormProps) {
   const { form, errors, handleChange, handleSubmit, setType, setField } =
     useTransactionForm({ onSave, onSubmitted, initialData });
+
+  const [isFrequencyOpen, setIsFrequencyOpen] = useState(false);
+  const frequencies = [
+    { value: "daily", label: "Daily" },
+    { value: "weekly", label: "Weekly" },
+    { value: "monthly", label: "Monthly" },
+    { value: "yearly", label: "Yearly" },
+  ] as const;
 
   const content = (
     <form
@@ -100,8 +110,8 @@ export function TransactionForm({
             type="button"
             onClick={() => setType("expense")}
             className={`flex-1 rounded-md px-3 py-1.5 text-center transition ${form.type === "expense"
-                ? "bg-rose-50 text-rose-600 ring-1 ring-rose-200"
-                : "text-slate-500 hover:bg-slate-100"
+              ? "bg-rose-50 text-rose-600 ring-1 ring-rose-200"
+              : "text-slate-500 hover:bg-slate-100"
               }`}
           >
             Expense
@@ -110,8 +120,8 @@ export function TransactionForm({
             type="button"
             onClick={() => setType("income")}
             className={`flex-1 rounded-md px-3 py-1.5 text-center transition ${form.type === "income"
-                ? "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200"
-                : "text-slate-500 hover:bg-slate-100"
+              ? "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200"
+              : "text-slate-500 hover:bg-slate-100"
               }`}
           >
             Income
@@ -127,28 +137,71 @@ export function TransactionForm({
             type="checkbox"
             checked={form.isRecurring}
             onChange={handleChange}
-            className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+            className="h-4 w-4 rounded border-slate-300 text-[#752264] focus:ring-[#752264] cursor-pointer"
           />
           <label
             htmlFor="isRecurring"
-            className="text-xs font-medium text-slate-600"
+            className="text-xs font-medium text-slate-600 cursor-pointer"
           >
             Recurring Transaction
           </label>
         </div>
         {form.isRecurring && (
-          <select
-            id="frequency"
-            name="frequency"
-            value={form.frequency}
-            onChange={handleChange}
-            className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none ring-sky-500/60 transition focus:ring-2"
-          >
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-          </select>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setIsFrequencyOpen(!isFrequencyOpen)}
+              className="flex w-full items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 outline-none ring-[#752264]/60 transition-all hover:border-[#752264]/30 focus:ring-2 cursor-pointer"
+            >
+              <span className="capitalize">{form.frequency}</span>
+              <svg
+                className={`ml-2 h-4 w-4 text-slate-400 transition-transform ${isFrequencyOpen ? "rotate-180" : ""
+                  }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            {isFrequencyOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-10"
+                  onClick={() => setIsFrequencyOpen(false)}
+                />
+                <div className="absolute left-0 top-full z-20 mt-1 w-full rounded-xl border border-slate-200 bg-white p-1 shadow-xl animate-modalPopIn">
+                  <div className="max-h-[100px] overflow-y-auto pr-1">
+                    {frequencies.map((freq) => (
+                      <button
+                        key={freq.value}
+                        type="button"
+                        onClick={() => {
+                          setField("frequency", freq.value);
+                          setIsFrequencyOpen(false);
+                        }}
+                        className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors cursor-pointer ${form.frequency === freq.value
+                            ? "bg-[#752264]/5 text-[#752264]"
+                            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                          }`}
+                      >
+                        {freq.label}
+                        {form.frequency === freq.value && (
+                          <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#752264]" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         )}
       </div>
 
@@ -156,7 +209,7 @@ export function TransactionForm({
         <div className="flex items-end md:col-span-2 lg:col-span-3">
           <button
             type="submit"
-            className="w-full rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 hover:shadow-md md:w-auto"
+            className="w-full rounded-lg bg-[#752264] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:shadow-md md:w-auto cursor-pointer"
           >
             {submitLabel ?? (initialData ? "Update transaction" : "Add transaction")}
           </button>

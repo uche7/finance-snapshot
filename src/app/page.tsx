@@ -83,26 +83,28 @@ export default function Dashboard() {
                     className="fixed inset-0 z-10"
                     onClick={() => setIsCurrencyOpen(false)}
                   />
-                  <div className="absolute right-0 mt-2 w-32 z-20 origin-top-right rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl ring-1 ring-black/5 animate-modalPopIn">
-                    {CURRENCIES.map((c) => (
-                      <button
-                        key={c.code}
-                        onClick={() => {
-                          setCurrency(c);
-                          setIsCurrencyOpen(false);
-                        }}
-                        className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors cursor-pointer ${currency.code === c.code
-                          ? "bg-[#752264]/5 text-[#752264]"
-                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                          }`}
-                      >
-                        <span className="w-4 text-center">{c.symbol}</span>
-                        <span>{c.code}</span>
-                        {currency.code === c.code && (
-                          <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#752264]" />
-                        )}
-                      </button>
-                    ))}
+                  <div className="absolute right-0 mt-2 w-32 z-20 origin-top-right rounded-xl border border-slate-200 bg-white p-1 shadow-xl ring-1 ring-black/5 animate-modalPopIn">
+                    <div className="max-h-[160px] overflow-y-auto pr-1">
+                      {CURRENCIES.map((c) => (
+                        <button
+                          key={c.code}
+                          onClick={() => {
+                            setCurrency(c);
+                            setIsCurrencyOpen(false);
+                          }}
+                          className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors cursor-pointer ${currency.code === c.code
+                              ? "bg-[#752264]/5 text-[#752264]"
+                              : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                            }`}
+                        >
+                          <span className="w-4 text-center">{c.symbol}</span>
+                          <span>{c.code}</span>
+                          {currency.code === c.code && (
+                            <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#752264]" />
+                          )}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </>
               )}
