@@ -89,11 +89,11 @@ export function TransactionList({
           <table className="min-w-full text-left text-sm">
             <thead>
               <tr className="border-b border-slate-100 text-xs uppercase tracking-wide text-slate-500">
-                <th className="py-2 pr-3">Date</th>
-                <th className="py-2 pr-3">Category</th>
-                <th className="py-2 pr-3">Description</th>
-                <th className="py-2 pr-3 text-right">Amount</th>
-                <th className="py-2 pl-3 text-right">Actions</th>
+                <th className="py-2 pr-4 min-w-[90px] whitespace-nowrap">Date</th>
+                <th className="py-2 pr-4 min-w-[100px] whitespace-nowrap">Category</th>
+                <th className="py-2 pr-4 w-auto">Description</th>
+                <th className="py-2 pr-4 min-w-[90px] whitespace-nowrap text-right">Amount</th>
+                <th className="py-2 pl-4 min-w-[100px] whitespace-nowrap text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -104,35 +104,35 @@ export function TransactionList({
                     key={transaction.id}
                     className="border-b border-slate-50 text-xs last:border-0 hover:bg-slate-50"
                   >
-                    <td className="py-2 pr-3 align-middle">
+                    <td className="py-3 pr-4 align-middle whitespace-nowrap">
                       {formatDate(transaction.date)}
                     </td>
-                    <td className="py-2 pr-3 align-middle">
+                    <td className="py-3 pr-4 align-middle whitespace-nowrap text-slate-600">
                       <div className="flex items-center gap-2">
                         {transaction.category}
                         {transaction.isRecurring && (
                           <span
                             title={`Recurring ${transaction.frequency}`}
-                            className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-sky-50 text-[10px] text-sky-600 ring-1 ring-sky-200"
+                            className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-slate-100 text-[10px] text-slate-500 ring-1 ring-slate-200"
                           >
                             ↻
                           </span>
                         )}
                       </div>
                     </td>
-                    <td className="py-2 pr-3 align-middle text-slate-700">
+                    <td className="py-3 pr-4 align-middle font-medium text-slate-800 break-words">
                       {transaction.description}
                     </td>
-                    <td className="py-2 pr-3 align-middle text-right">
+                    <td className="py-3 pr-4 align-middle text-right whitespace-nowrap">
                       <span
-                        className={`font-semibold ${isIncome ? "text-emerald-600" : "text-rose-600"
+                        className={`font-bold ${isIncome ? "text-emerald-600" : "text-rose-600"
                           }`}
                       >
                         {isIncome ? "+" : "-"}
                         {formatCurrency(transaction.amount, "en-US", currency.code, currency.symbol)}
                       </span>
                     </td>
-                    <td className="py-2 pl-3 text-right align-middle">
+                    <td className="py-3 pl-4 text-right align-middle whitespace-nowrap">
                       <div className="flex justify-end gap-1.5">
                         <button
                           type="button"
